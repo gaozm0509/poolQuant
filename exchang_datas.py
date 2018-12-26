@@ -2,6 +2,6 @@
 # 获取交易所数据
 
 import ccxt
-hitbtc = ccxt.hitbtc({'verbose': True})
-hitbtc_markets = hitbtc.load_markets()
-print(hitbtc.id, hitbtc_markets)
+okcoin = ccxt.okcoinusd ()
+markets = okcoin.load_markets ()
+print (okcoin.id, markets)
