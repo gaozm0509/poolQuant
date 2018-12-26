@@ -4,6 +4,6 @@
 import ccxt
 okex = ccxt.okex ()
 # markets = okcoin.load_markets ()
-symbol = 'BTC/USDT'
+symbol = 's/USDT'
 ticker = okex.fetch_ticker(symbol)
 print (ticker)
