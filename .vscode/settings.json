@@ -1,4 +1,5 @@
 {
     "python.pythonPath": "/Users/gaozemin/anaconda3/envs/quant/bin/python",
-    "python.linting.enabled": false
+    "python.linting.enabled": false,
+    "python.formatting.provider": "yapf"
 }
