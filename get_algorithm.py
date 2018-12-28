@@ -68,18 +68,6 @@ def algorithm_info(algorithms=None):
             algorithms_info_col.insert_one(all_dic)
         print('got', algorithm, '...')
 
-    ### 为了时效性，把插入操作写到循环体中了
-
-    # all_dic['update_condition'] = 1
-    # algorithms_info_col = db['algorithms_info']
-    # algorithms_info = algorithms_info_col.find_one()
-    # condition = {'update_condition': 1}
-    # if algorithms_info:
-    #     # 更新
-    #     algorithms_info_col.update_one(condition, {'$set': all_dic})
-    # else:
-    #     # 插入
-    #     algorithms_info_col.insert_one(all_dic)
 
 
 def get_unit(algorithms=None):
@@ -117,5 +105,5 @@ def get_algorithm_list():
 
 
 get_unit()
-
+algorithm_info()
 

@@ -14,7 +14,7 @@ PLX = 'Poloniex'
 MK_LIST = [OKEX, HUOBI, CRY, BIN, BIX, PLX]
 
 
-def get_market(market=OKEX):
+def get_market_info(market=OKEX):
     """ 抓取交易所交易对，并跟新到数据库 """
     mk = get_market(market)
     markets = mk.load_markets()
@@ -59,7 +59,5 @@ def get_price_from_key(key, market=OKEX):
     return float(ticker['ask'])
 
 
-get_price_from_key('BCH/BTC', OKEX)
-
-# for mk in MK_LIST:
-#     get_market(mk)
+for mk in MK_LIST:
+    get_market_info(mk)
