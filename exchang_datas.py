@@ -11,7 +11,30 @@ BIN = 'Binance'
 BIX = 'Bittrex'
 PLX = 'Poloniex'
 
-MK_LIST = [OKEX,HUOBI,CRY,BIN,BIX,PLX]
+MK_LIST = [OKEX, HUOBI, CRY, BIN, BIX, PLX]
+
+
+def get_market(market=OKEX):
+    """ 抓取交易所交易对，并跟新到数据库 """
+    mk = get_market(market)
+    markets = mk.load_markets()
+    l = [i for i in markets.keys() if '/BTC' in i]
+    db_client = MongoClient('mongodb://127.0.0.1:27017/')
+    db = db_client['PoolQuant']
+    db_col = db['market_infos']
+    condition = {'update_condition': 1}
+    db_dic = db_col.find_one(condition)
+
+    if db_dic:
+        # 更新
+        db_dic[market] = l
+        db_col.update_one(condition, {'$set': db_dic})
+        print('更新', market, '完成')
+    else:
+        # 插入
+        dic = {'update_condition': 1, market: l}
+        db_col.insert_one(dic)
+        print('插入', market, '完成')
 
 
 def get_market(market=OKEX):
@@ -24,31 +47,19 @@ def get_market(market=OKEX):
         mk = ccxt.binance()
     if market == PLX:
         mk = ccxt.poloniex()
-    markets = mk.load_markets()
-    l = [i for i in markets.keys() if '/BTC' in i ]
-    db_client = MongoClient('mongodb://127.0.0.1:27017/')
-    db = db_client['PoolQuant']
-    db_col = db['market_infos']
-    condition = {'update_condition': 1}
-    db_dic = db_col.find_one(condition)
-    
-    if db_dic:
-        # 更新
-        db_dic[market] = l
-        db_col.update_one(condition, {'$set': db_dic})
-        print('更新',market,'完成')
-    else:
-        # 插入
-        dic = {'update_condition':1,market:l}
-        db_col.insert_one(dic)
-        print('插入',market,'完成')
-    print()
+    return mk
 
-for mk in MK_LIST:
-    get_market(mk)
 
-# okex = ccxt.okex()
-# # markets = okcoin.load_markets ()
-# symbol = 's/USDT'
-# ticker = okex.fetch_ticker(symbol)
-# print(ticker)
+def get_price_from_key(key, market=OKEX):
+    """ 从指定交易所（mk）获取指定交易对（key）的价格 """
+    # 实例化市场
+    exchange = get_market(market)
+    # 获取ticker信息
+    ticker = exchange.fetch_ticker(key)
+    return float(ticker['ask'])
+
+
+get_price_from_key('BCH/BTC', OKEX)
+
+# for mk in MK_LIST:
+#     get_market(mk)

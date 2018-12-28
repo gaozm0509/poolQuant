@@ -40,21 +40,18 @@ def algorithm_info(algorithms=None):
 
         # 删除旷工为零的元素
         orders = jsonReslut['usa']['orders']
-        orders = [l for l in orders if int(l[5]) > 0]
+        orders = [l for l in orders if int(l[5]) > 200]
         # 按照 price 排序
         orders.sort(key=operator.itemgetter(3), reverse=False)
-
-        # orders 中的数组转成 dic
-        order_dics = []
-        for order in orders:
-            order_dic = {}
-            order_dic['order'] = order[0]  # 订单号
-            order_dic['price'] = order[3]  # 价格，单价
-            order_dic['limit'] = order[4]  # 不知道
-            order_dic['miners'] = order[5]  # 旷工数
-            order_dic['speed'] = order[6]  # 速度
-            order_dics.append(order_dic)
-        all_dic[algorithm] = order_dics
+        # 去最优
+        order = orders[0]
+        order_dic = {}
+        order_dic['order'] = order[0]  # 订单号
+        order_dic['price'] = order[3]  # 价格，单价
+        order_dic['limit'] = order[4]  # 不知道
+        order_dic['miners'] = order[5]  # 旷工数
+        order_dic['speed'] = order[6]  # 速度
+        all_dic[algorithm] = order_dic
 
         ## 第一条插入更新 condition
         if index == 0:
@@ -89,16 +86,28 @@ def get_unit(algorithms=None):
     """ 更新nicehash算法对应的算力计量单位 """
     if algorithms is None:
         algorithms = get_algorithm_list()
-    all_dic = {}
-    for index, algorithm in enumerate(algorithms):
-        # 获取算力单位
-        unit_url = 'https://www.nicehash.com/marketplace/' +  algorithm.lower()
-        unit_r = requests.get(unit_url)
-        unit_texts = BeautifulSoup(unit_r.text, features='html.parser')
-        unit_trs = unit_texts.find_all('eu', class_='eu')
-        # unit_tr = unit_trs[0]
-        # unit = str(unit_tr.find('small').text)
-        print(unit_url)
+    unit_url = 'https://www.nicehash.com/marketplace/scrypt'
+    unit_r = requests.get(unit_url)
+    unit_text = str(unit_r.text)
+    begin_index = unit_text.find('ALGORITHMS:')
+    end_index = unit_text.index('SERVERS:')
+    unit_text = unit_text[begin_index:end_index]
+    unit_text = unit_text.strip()
+    unit_text = unit_text[len('ALGORITHMS:'):-1] # 去掉逗号
+    unit_dic = eval(unit_text)
+
+    # 跟新到数据库
+    db_col = db['algorithm_unit']
+    algorithm_unit = db_col.find_one()
+    condition = {'update_condition': 1}
+    if algorithm_unit:
+        # 更新
+        db_col.update_one(condition, {'$set': unit_dic})
+    else:
+        # 插入
+        db_col.insert_one({'update_condition':1,'algorithm':unit_dic})
+    print(unit_dic)
+        
 
 
 def get_algorithm_list():
@@ -108,3 +117,5 @@ def get_algorithm_list():
 
 
 get_unit()
+
+

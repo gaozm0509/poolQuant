@@ -78,12 +78,12 @@ def getCoins(algorithm_key=None):
         table = key_bs.find('table', id='tblmd')
         # 如果没有需要的数据，则下一个循环
         if table is None:
-            print(coin_name,'-table 抓取失败',)
+            print(coin_name,'-table 抓取失败，url:',key_url)
             continue
         trs = table.find_all('tr', id='row')
         # 如果没有需要的数据，则下一个循环
         if len(trs) < 3:
-            print(coin_name,'tr id=row 抓取失败',)
+            print(coin_name,'tr id=row 抓取失败，url:',key_url)
             continue
         day_tr = trs[2]
         tds = day_tr.find_all('td')
@@ -107,7 +107,7 @@ def getCoins(algorithm_key=None):
         dic['coin_all_name'] = coin_all_name
         dic['coin_short_name'] = coin_short_name
         dic['hashrate_unit'] = unit
-        print(td_dic,'\n')
+        print(dic,'\n')
         l.append(dic)
         l.sort(key=lambda e: e.__getitem__('algorithm'))
 
@@ -117,20 +117,23 @@ def getCoins(algorithm_key=None):
     #   [{'algorithm':'算法2','coin_all_name':'coin全名','coin_short_name':'coin简称',pool_url:'矿池列表'}]
     # ]
     # 的list
-    result = []
+    result = {}
     for index, item in enumerate(l):
         if index == 0:
             result_item = []
             result_item.append(item)
-            result.append(result_item)
+            key = item['algorithm']
+            result[key] = result_item
         else:
-            last_item = result[-1]
-            if last_item[0]['algorithm'] == item['algorithm']:
-                last_item.append(item)
+            last_item = l[index - 1]
+            key = item['algorithm']
+            if last_item['algorithm'] == key:
+                result[key].append(item)
             else:
                 result_item = []
                 result_item.append(item)
-                result.append(result_item)
+                key = item['algorithm']
+                result[key] = result_item
     # 插入数据库
     insert_dic = {'time': curr_time, 'coins': result, 'update_condition': 1}
     if col_reuslt:
@@ -151,47 +154,3 @@ def getCoins(algorithm_key=None):
 
 getCoins()
 
-# # 矿池 list 链接
-#         a_tab = (item_bs.find('a'))
-#         a_tab_str = str(a_tab.get('href'))
-#         a_key = a_tab_str[11:-11]
-#         pool_urls = 'https://www.crypto-coinz.net/recommended-crypto-pools-for/' + a_key + 'mining-pools/'
-#         # pool_urls = 'https://www.crypto-coinz.net/recommended-crypto-pools-for/?186-Dogecoin-DOGE-Scrypt-mining-pools/'
-#         # 根据规则获取最优的矿池
-#         print(pool_urls)
-#         pool_r = requests.get(pool_urls)
-#         pool_bs = BeautifulSoup(pool_r.text, features='html.parser')
-#         pool_texts = pool_bs.find_all('tr',id = 'row')
-#         # 如果没有矿池支持（pool_texts长度为0）则直接寻找下一条
-#         if len(pool_texts) == 0:
-#             continue
-#         pool_list = []
-#         for pool_text in pool_texts:
-#             td_dic = {}
-#             for index, td in enumerate(pool_text.find_all('td')):
-#                 if index == 1:
-#                     td_dic['pool_link'] = td.find('a')['href']
-#                 if index == 2:
-#                     s = str(td.text)
-#                     s = s.replace(' ','')
-#                     s = s.replace('\t','')
-#                     s = s.replace('\n','')
-#                     s = s.replace('%','')
-#                     td_dic['commision'] = s
-#                 if index == 3:
-#                     s = str(td.text)
-#                     s = s.replace(' ','')
-#                     s = s.replace('\t','')
-#                     s = s.replace('\n','')
-#                     td_dic['workers'] = int(s)
-#             pool_list.append(td_dic)
-#         # 删选 pool_list
-#         new_pool_list = [item for item in pool_list if item['workers'] >= 200]
-
-#         # 如果没有矿池支持（pool_texts长度为0）则直接寻找下一条
-#         if len(pool_texts) == 0:
-#             continue
-
-#         new_pool_list.sort(key=lambda e: e.__getitem__('commision'))
-#         # if len(new_pool_list) > 3:
-#         #     new_pool_list = new_pool_list[:3]
