@@ -46,46 +46,49 @@ def get_reulst():
         bix = exchang_datas.BIX
         min_exchange = okex
         for ok_coins in market_coins[okex]:
-            if coin_short_name in ok_coins:
-                current_price_btc = exchang_datas.get_price_from_key(
-                    ok_coins, okex)
-                break
+                if coin_short_name in ok_coins:
+                        current_price_btc = exchang_datas.get_price_from_key(
+                                ok_coins, okex)
+                        break
 
         for huobi_coins in market_coins[huobi]:
-            if coin_short_name in huobi_coins:
-                price_btc = exchang_datas.get_price_from_key(
-                    huobi_coins, huobi)
-                if current_price_btc > price_btc:
-                    current_price_btc = price_btc
-                    min_exchange = huobi
+                if coin_short_name in huobi_coins:
+                        price_btc = exchang_datas.get_price_from_key(
+                        huobi_coins, huobi)
+                        if current_price_btc > price_btc:
+                                current_price_btc = price_btc
+                                min_exchange = huobi
+                    
 
         for bina_coins in market_coins[bina]:
-            if coin_short_name in bina_coins:
-                price_btc = exchang_datas.get_price_from_key(bina_coins, bina)
-                if current_price_btc > price_btc:
-                    current_price_btc = price_btc
-                    min_exchange = bina
+                if coin_short_name in bina_coins:
+                        price_btc = exchang_datas.get_price_from_key(bina_coins, bina)
+                        if current_price_btc > price_btc:
+                                current_price_btc = price_btc
+                                min_exchange = bina
+                    
 
         for plx_coins in market_coins[plx]:
-            if coin_short_name in plx_coins:
-                price_btc = exchang_datas.get_price_from_key(plx_coins, plx)
-                if current_price_btc > price_btc:
-                    current_price_btc = price_btc
-                    min_exchange = plx
+                if coin_short_name in plx_coins:
+                        price_btc = exchang_datas.get_price_from_key(plx_coins, plx)
+                        if current_price_btc > price_btc:
+                                current_price_btc = price_btc
+                                min_exchange = plx
 
         for cry_coins in market_coins[cry]:
-            if coin_short_name in cry_coins:
-                price_btc = exchang_datas.get_price_from_key(cry_coins, cry)
-                if current_price_btc > price_btc:
-                    current_price_btc = price_btc
-                    min_exchange = cry
+                if coin_short_name in cry_coins:
+                        price_btc = exchang_datas.get_price_from_key(cry_coins, cry)
+                        if current_price_btc > price_btc:
+                                current_price_btc = price_btc
+                                min_exchange = cry
+            
 
         for bix_coins in market_coins[bix]:
-            if coin_short_name in bix_coins:
-                price_btc = exchang_datas.get_price_from_key(bix_coins, bix)
-                if current_price_btc > price_btc:
-                    current_price_btc = price_btc
-                    min_exchange = bix
+                if coin_short_name in bix_coins:
+                        price_btc = exchang_datas.get_price_from_key(bix_coins, bix)
+                        if current_price_btc > price_btc:
+                                current_price_btc = price_btc
+                                min_exchange = bix    
 
         key = coin['algorithm']
         print('市场最低价：', current_price_btc, '交易所', min_exchange)
