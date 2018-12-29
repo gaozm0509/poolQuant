@@ -57,7 +57,10 @@ def get_price_from_key(key, market=OKEX):
     # 获取ticker信息
     ticker = exchange.fetch_ticker(key)
     print(ticker)
-    return float(ticker['info']['AskPrice'])
+    if 'info' in ticker.keys():
+        return float(ticker['info']['AskPrice'])
+    if 'ask' in ticker.keys():
+        return float(ticker['ask'])
 
 
 for mk in MK_LIST:
