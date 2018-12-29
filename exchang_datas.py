@@ -53,9 +53,11 @@ def get_market(market=OKEX):
 def get_price_from_key(key, market=OKEX):
     """ 从指定交易所（mk）获取指定交易对（key）的价格 """
     # 实例化市场
+    print('get_price_from_key',key,market)
     exchange = get_market(market)
     # 获取ticker信息
     ticker = exchange.fetch_ticker(key)
+    print(ticker)
     return float(ticker['ask'])
 
 
