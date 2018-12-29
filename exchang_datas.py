@@ -58,9 +58,9 @@ def get_price_from_key(key, market=OKEX):
     ticker = exchange.fetch_ticker(key)
     print(ticker)
     if 'ask' in ticker.keys():
-        return float(ticker['ask'])
+        return ticker['ask']
     if 'info' in ticker.keys():
-        return float(ticker['info']['AskPrice'])
+        return ticker['info']['AskPrice']
 
 
 def run():

@@ -104,7 +104,7 @@ def get_reulst():
                         nice_hash_unit = algorithm_unit_info[unit_key]['suffix']
                         algorithm_price_btc = float(estimated_reward) * float(algorithm_price)
 
-                        print('算力市场价格：', algorithm_price_btc,'niceHashUnit:',nice_hash_unit,'crptoUnit:',hashrate_unit)
+                        print('算力市场价格：', algorithm_price_btc,'niceHashUnit:',nice_hash_unit,'crptoUnit:',hashrate_unit,'\n')
         
 
 get_reulst()
