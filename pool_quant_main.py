@@ -106,7 +106,7 @@ def get_reulst():
                 print('算力市场价格：', algorithm_price_btc, 'niceHashUnit:',
                       nice_hash_unit, 'crptoUnit:', hashrate_unit, '\n')
         else:
-            print('coin["algorithm"]未找到')
+            print('市场最低价：coin["algorithm"]未找到')
 
 
 get_reulst()
