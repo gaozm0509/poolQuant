@@ -45,15 +45,15 @@ def get_reulst():
         plx = exchang_datas.PLX
         cry = exchang_datas.CRY
         bix = exchang_datas.BIX
-        min_exchange = okex
+        min_exchange = '指定交易所没有该币种'
         for ok_coins in market_coins[okex]:
             if coin_short_name in ok_coins:
                 current_price_btc = exchang_datas.get_price_from_key(
                     ok_coins, okex)
-                print('=====', current_price_btc)
+                # print('=====', current_price_btc)
                 break
 
-        for huobi_coins in market_coins[huobi]:
+        for huobi_coins in market_coins[huobi]: 
             if coin_short_name in huobi_coins:
                 price_btc = exchang_datas.get_price_from_key(
                     huobi_coins, huobi)
