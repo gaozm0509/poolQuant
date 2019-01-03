@@ -64,13 +64,14 @@ def getCoins(algorithm_key=None):
         a_tab_str = str(a_tab.get('href'))
         a_key = a_tab_str[11:-11]
         key_url = 'https://www.crypto-coinz.net/coin-info/' + a_key + 'calculator/'
+        
         key_post_params = {
             'what_to_calculate': 1,
             'power': 0,
             'hardwareCost': 0,
             'electricityCost': 0,
             'poolFee': 0,
-            'chooseExchange': 1,
+            'chooseExchange': 0,
             'submit_data': 'Calculate'
         }
         key_r = requests.post(key_url, key_post_params)
@@ -152,5 +153,14 @@ def getCoins(algorithm_key=None):
     return result
 
 
+# www.crypto-coinz.net网站上币对应的交易所
+def get_ex(url):
+    url = 'https://www.crypto-coinz.net/coin-info/?183-Adeptio-ADE-Quark-calculator/'
+    r = requests.get(url)
+    bs = BeautifulSoup(r.text, features='html.parser')
+    texts = bs.find_all('div', class_='dropdown-menu open')
+    print(texts)
+
+# get_ex('')
 getCoins()
 
