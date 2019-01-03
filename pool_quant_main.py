@@ -49,7 +49,7 @@ def get_reulst():
             if coin_short_name in ok_coins:
                 current_price_btc = exchang_datas.get_price_from_key(
                     ok_coins, okex)
-                print('=====',current_price_btc)
+                print('=====', current_price_btc)
                 break
 
         for huobi_coins in market_coins[huobi]:
@@ -105,6 +105,8 @@ def get_reulst():
 
                 print('算力市场价格：', algorithm_price_btc, 'niceHashUnit:',
                       nice_hash_unit, 'crptoUnit:', hashrate_unit, '\n')
+        else:
+            print('coin["algorithm"]未找到')
 
 
 get_reulst()
