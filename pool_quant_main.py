@@ -33,7 +33,7 @@ def get_reulst():
     coins = []
     for key in coin_dic.keys():
         coins.extend(coin_dic[key])
-
+    print('目标币种',coins,'\n')
     for coin in coins:
         # 计算交易所该币的价格
         current_price_btc = 0
@@ -90,7 +90,7 @@ def get_reulst():
                     min_exchange = bix
 
         key = coin['algorithm']
-        print('市场最低价：', current_price_btc, '交易所', min_exchange)
+        print('交易市场最低价：', current_price_btc, '/', min_exchange)
 
         # 获取挖矿价格
         if key in algorithms_info.keys():
