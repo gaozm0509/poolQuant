@@ -17,20 +17,20 @@ def getCoins(algorithm_key=None):
     db = db_client['PoolQuant']
     col = db['coin_algorithm']
     col_reuslt = col.find_one()
-    if col_reuslt:
-        db_time = int(col_reuslt['time'])
-        # 从输入库获取数据
-        if curr_time - db_time < update_day * 24 * 60 * 60:
-            result = col_reuslt['coins']
-            single_result = []
-            # 如果传入 algorithm_key
-            if algorithm_key:
-                for item in result:
-                    if algorithm_key == item[0]['algorithm']:
-                        single_result = item
-                        result = single_result
-                        break
-            return result
+    # if col_reuslt:
+    #     db_time = int(col_reuslt['time'])
+    #     # 从输入库获取数据
+    #     if curr_time - db_time < update_day * 24 * 60 * 60:
+    #         result = col_reuslt['coins']
+    #         single_result = []
+    #         # 如果传入 algorithm_key
+    #         if algorithm_key:
+    #             for item in result:
+    #                 if algorithm_key == item[0]['algorithm']:
+    #                     single_result = item
+    #                     result = single_result
+    #                     break
+    #         return result
 
     url = 'https://www.crypto-coinz.net/coins-calculator/'
     r = requests.get(url)
