@@ -73,7 +73,7 @@ def getCoins(algorithm_key=None):
                 break
         # 如果不包含，则跳出本次循环
         if target_ex == {}:
-            break
+            continue
         print('======',target_ex.keys())
         key_post_params = {
             'what_to_calculate': 1,
