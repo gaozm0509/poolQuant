@@ -87,7 +87,8 @@ def getCoins(algorithm_key=None):
         print('post_data ===',key_post_params)
         key_r = requests.post(key_url, key_post_params)
         key_bs = BeautifulSoup(key_r.text, features='html.parser')
-        table = key_bs.find('table', id='tblmd')
+        tables = key_bs.find_all('table', id='tblmd')
+        table = tables[0]
         # 如果没有需要的数据，则下一个循环
         print('table===',table,'\n')
         if table is None:
