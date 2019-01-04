@@ -72,9 +72,9 @@ def getCoins(algorithm_key=None):
                 target_ex = ex_dic
                 break
         # 如果不包含，则跳出本次循环
-        if target_ex.keys() == 0:
+        if target_ex == {}:
             break
-        print(target_ex)
+        print('======',target_ex.keys())
         key_post_params = {
             'what_to_calculate': 1,
             'power': 0,
