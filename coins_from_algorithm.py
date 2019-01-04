@@ -65,6 +65,7 @@ def getCoins(algorithm_key=None):
         a_tab_str = str(a_tab.get('href'))
         a_key = a_tab_str[11:-11]
         key_url = 'https://www.crypto-coinz.net/coin-info/' + a_key + 'calculator/'
+        key_url = 'https://www.crypto-coinz.net/coin-info/?15-BitSend-BSD-Xevan-calculator/'
         ex_list = get_ex(key_url)
         target_ex = {}
         for ex_dic in ex_list:
