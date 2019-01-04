@@ -7,9 +7,9 @@ from pymongo import MongoClient
 OKEX = 'okex'
 HUOBI = 'huobi'
 CRY = 'cryptopia'
-BIN = 'Binance'
-BIX = 'Bittrex'
-PLX = 'Poloniex'
+BIN = 'binance'
+BIX = 'bittrex'
+PLX = 'poloniex'
 
 MK_LIST = [OKEX, HUOBI, CRY, BIN, BIX, PLX]
 

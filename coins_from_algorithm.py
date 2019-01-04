@@ -5,6 +5,7 @@ import requests
 import time
 from bs4 import BeautifulSoup
 from pymongo import MongoClient
+import exchang_datas
 
 update_day = 10  #数据库更新间隔时间
 
@@ -64,14 +65,22 @@ def getCoins(algorithm_key=None):
         a_tab_str = str(a_tab.get('href'))
         a_key = a_tab_str[11:-11]
         key_url = 'https://www.crypto-coinz.net/coin-info/' + a_key + 'calculator/'
-        
+        ex_list = get_ex(key_url)
+        target_ex = {}
+        for ex_dic in ex_list:
+            if ex_dic['ex'].lower() in exchang_datas.MK_LIST:
+                target_ex = ex_dic
+                break
+        # 如果不包含，则跳出本次循环
+        if target_ex.keys() == 0:
+            break
         key_post_params = {
             'what_to_calculate': 1,
             'power': 0,
             'hardwareCost': 0,
             'electricityCost': 0,
             'poolFee': 0,
-            'chooseExchange': 0,
+            'chooseExchange': target_ex['value'],
             'submit_data': 'Calculate'
         }
         key_r = requests.post(key_url, key_post_params)
@@ -79,12 +88,12 @@ def getCoins(algorithm_key=None):
         table = key_bs.find('table', id='tblmd')
         # 如果没有需要的数据，则下一个循环
         if table is None:
-            print(coin_name,'-table 抓取失败，url:',key_url)
+            print(coin_name, '-table 抓取失败，url:', key_url)
             continue
         trs = table.find_all('tr', id='row')
         # 如果没有需要的数据，则下一个循环
         if len(trs) < 3:
-            print(coin_name,'tr id=row 抓取失败，url:',key_url)
+            print(coin_name, 'tr id=row 抓取失败，url:', key_url)
             continue
         day_tr = trs[2]
         tds = day_tr.find_all('td')
@@ -95,12 +104,12 @@ def getCoins(algorithm_key=None):
             if index == 2:
                 td_dic['exchange_rate'] = str(td.text).replace(' ', '')
 
-        
         # 获取单位
-        unit_bs = BeautifulSoup(key_r.text,features='html.parser')
-        unit_divs = unit_bs.find_all('div',class_ = 'input-group input-group-sm input-group-1st')
+        unit_bs = BeautifulSoup(key_r.text, features='html.parser')
+        unit_divs = unit_bs.find_all(
+            'div', class_='input-group input-group-sm input-group-1st')
         unit_div = unit_divs[0]
-        unit = str(unit_div.find('div',class_ = 'input-group-append-coin').text)
+        unit = str(unit_div.find('div', class_='input-group-append-coin').text)
 
         # 数据放入集合
         dic = td_dic
@@ -108,7 +117,7 @@ def getCoins(algorithm_key=None):
         dic['coin_all_name'] = coin_all_name
         dic['coin_short_name'] = coin_short_name
         dic['hashrate_unit'] = unit
-        print(dic,'\n')
+        print(dic, '\n')
         l.append(dic)
         l.sort(key=lambda e: e.__getitem__('algorithm'))
 
@@ -155,12 +164,20 @@ def getCoins(algorithm_key=None):
 
 # www.crypto-coinz.net网站上币对应的交易所
 def get_ex(url):
-    url = 'https://www.crypto-coinz.net/coin-info/?183-Adeptio-ADE-Quark-calculator/'
     r = requests.get(url)
     bs = BeautifulSoup(r.text, features='html.parser')
-    texts = bs.find_all('div', class_='dropdown-menu open')
-    print(texts)
+    texts = bs.find('select', class_='selectpicker')
+    options = texts.find_all('option')
+    l = []
+    for index, option in enumerate(options):
+        if index == 0:
+            continue
+        dic = {}
+        dic['value'] = option['value']
+        dic['ex'] = option.text
+        l.append(dic)
+    return l
+
 
 # get_ex('')
 getCoins()
-
