@@ -89,6 +89,7 @@ def getCoins(algorithm_key=None):
         key_bs = BeautifulSoup(key_r.text, features='html.parser')
         table = key_bs.find('table', id='tblmd')
         # 如果没有需要的数据，则下一个循环
+        print('table===',table,'\n')
         if table is None:
             print(coin_name, '-table 抓取失败，url:', key_url)
             continue
