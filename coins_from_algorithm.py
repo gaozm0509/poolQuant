@@ -177,7 +177,6 @@ def get_ex(url):
         dic['value'] = option['value']
         dic['ex'] = option.text
         l.append(dic)
-    print(l)
     return l
 
 
