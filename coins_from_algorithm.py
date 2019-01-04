@@ -74,7 +74,6 @@ def getCoins(algorithm_key=None):
         # 如果不包含，则跳出本次循环
         if target_ex == {}:
             continue
-        print('======',target_ex.keys())
         key_post_params = {
             'what_to_calculate': 1,
             'power': 0,
@@ -84,6 +83,7 @@ def getCoins(algorithm_key=None):
             'chooseExchange': target_ex['value'],
             'submit_data': 'Calculate'
         }
+        print('post_data ===',key_post_params)
         key_r = requests.post(key_url, key_post_params)
         key_bs = BeautifulSoup(key_r.text, features='html.parser')
         table = key_bs.find('table', id='tblmd')
