@@ -84,16 +84,12 @@ def getCoins(algorithm_key=None):
             'chooseExchange': target_ex['value'],
             'submit_data': 'Calculate'
         }
-        print('url===',key_url,'\n','post_data ===',key_post_params,'\n','ex===',target_ex['ex'])
+        print('url===',key_url,'\n','post_data ===',key_post_params,'\n','ex===',target_ex['ex'],'\n')
         key_r = None
         try:
             key_r = requests.post(key_url, key_post_params)
         except requests.exceptions.ConnectionError:
-            key_r = requests.post(key_url, key_post_params)
-        else:
-            continue
-        finally:
-            print('请求异常，重新请求')
+            print('error ==',requests.exceptions.ConnectionError)
         
         key_bs = BeautifulSoup(key_r.text, features='html.parser')
         trs = key_bs.find_all('tr', id='row',)
