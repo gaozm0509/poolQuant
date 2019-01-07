@@ -65,7 +65,7 @@ def getCoins(algorithm_key=None):
         a_tab_str = str(a_tab.get('href'))
         a_key = a_tab_str[11:-11]
         key_url = 'https://www.crypto-coinz.net/coin-info/' + a_key + 'calculator/'
-        key_url = 'https://www.crypto-coinz.net/coin-info/?15-BitSend-BSD-Xevan-calculator/'
+        # key_url = 'https://www.crypto-coinz.net/coin-info/?15-BitSend-BSD-Xevan-calculator/'
         ex_list = get_ex(key_url)
         target_ex = {}
         for ex_dic in ex_list:
@@ -84,25 +84,35 @@ def getCoins(algorithm_key=None):
             'chooseExchange': target_ex['value'],
             'submit_data': 'Calculate'
         }
-        print('post_data ===',key_post_params)
-        key_r = requests.post(key_url, key_post_params)
-        key_bs = BeautifulSoup(key_r.text, features='html.parser')
-        tables = key_bs.find_all('table', id='tblmd')
-        table = tables[0]
-        # 如果没有需要的数据，则下一个循环
-        print('table===',table,'\n')
-        if table is None:
-            print(coin_name, '-table 抓取失败，url:', key_url)
+        print('url===',key_url,'\n','post_data ===',key_post_params)
+        key_r = None
+        try:
+            key_r = requests.post(key_url, key_post_params)
+        except requests.exceptions.ConnectionError:
+            key_r = requests.post(key_url, key_post_params)
+        else:
             continue
-        trs = table.find_all('tr', id='row')
+        finally:
+            print('请求异常，重新请求')
+        
+        key_bs = BeautifulSoup(key_r.text, features='html.parser')
+        trs = key_bs.find_all('tr', id='row',)
+        # table = tables[0]
+        # 如果没有需要的数据，则下一个循环
+        # print('tables===',tables,'\n')
+        # if table is None:
+        #     print(coin_name, '-table 抓取失败，url:', key_url)
+        #     continue
+        # trs = table.find_all('tr', id='row')
         # 如果没有需要的数据，则下一个循环
         if len(trs) < 3:
             print(coin_name, 'tr id=row 抓取失败，url:', key_url)
             continue
+        
         day_tr = trs[2]
         tds = day_tr.find_all('td')
         td_dic = {}
-        for index, td in enumerate(day_tr):
+        for index, td in enumerate(tds):
             if index == 1:
                 td_dic['estimated_reward'] = str(td.text)
             if index == 2:
