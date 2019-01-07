@@ -174,7 +174,13 @@ def getCoins(algorithm_key=None):
 
 # www.crypto-coinz.net网站上币对应的交易所
 def get_ex(url):
-    r = requests.get(url)
+    r = None
+    try:
+        r = requests.get(url)
+    except requests.exceptions.ConnectionError:
+        print('get_ex error:',requests.exceptions.ConnectionError)
+        return []
+    
     bs = BeautifulSoup(r.text, features='html.parser')
     texts = bs.find('select', class_='selectpicker')
     options = texts.find_all('option')
