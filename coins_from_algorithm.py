@@ -84,7 +84,7 @@ def getCoins(algorithm_key=None):
             'chooseExchange': target_ex['value'],
             'submit_data': 'Calculate'
         }
-        print('url===',key_url,'\n','post_data ===',key_post_params)
+        print('url===',key_url,'\n','post_data ===',key_post_params,'\n','ex===',target_ex['ex'])
         key_r = None
         try:
             key_r = requests.post(key_url, key_post_params)
