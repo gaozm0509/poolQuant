@@ -128,10 +128,15 @@ def getCoins(algorithm_key=None):
         dic['coin_short_name'] = coin_short_name
         dic['hashrate_unit'] = unit
         print(dic, '\n')
-        l.append(dic)
-        l.sort(key=lambda e: e.__getitem__('algorithm'))
+        # l.append(dic)
+        # l.sort(key=lambda e: e.__getitem__('algorithm'))
+        # insert_dic = {'time': curr_time, 'coins': l, 'update_condition': 1}
+        # if col_reuslt:
+        #     col.update_one({'update_condition': 1}, {'$set': insert_dic})
+        # else:
+        #     col.insert_one(insert_dic)
 
-    # 根据算法分组，得到
+    # 根据算法名称分组，得到一下结构
     # [
     #   [{'algorithm':'算法1','coin_all_name':'coin全名','coin_short_name':'coin简称',pool_url:'矿池列表'}],
     #   [{'algorithm':'算法2','coin_all_name':'coin全名','coin_short_name':'coin简称',pool_url:'矿池列表'}]
