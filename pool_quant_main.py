@@ -36,7 +36,7 @@ def get_reulst():
     # print('目标币种',coins,'\n')
     for index,coin in enumerate(coins):
         # 计算交易所该币的价格
-        current_price_btc = 0
+        current_price_btc = 0.0
         coin_short_name = coin['coin_short_name']
         if coin_short_name == 'BTC':
             continue
