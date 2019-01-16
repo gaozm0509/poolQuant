@@ -6,7 +6,7 @@ from pymongo import MongoClient
 
 OKEX = 'okex'
 HUOBI = 'huobi'
-CRY = 'Cryptopia'
+CRY = 'cryptopia'
 BIN = 'binance'
 BIX = 'bittrex'
 PLX = 'poloniex'
@@ -24,7 +24,7 @@ def get_market_info(market=OKEX):
     db_col = db['market_infos']
     condition = {'update_condition': 1}
     db_dic = db_col.find_one(condition)
-
+    print('交易所名称：',market)
     if db_dic:
         # 更新
         db_dic[market] = l
