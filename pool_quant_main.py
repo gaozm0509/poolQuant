@@ -94,6 +94,7 @@ def get_reulst():
         key = coin['algorithm']
         print('交易市场最低价：', current_price_btc, '/', min_exchange)
 
+        print('所有目标币：',algorithms_info.keys())
         # 获取挖矿价格
         if key in algorithms_info.keys():
             algorithms_dic = algorithms_info[key]
