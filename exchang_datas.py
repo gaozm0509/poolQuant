@@ -67,5 +67,3 @@ def run():
     for mk in MK_LIST:
         get_market_info(mk)
 
-
-run()
