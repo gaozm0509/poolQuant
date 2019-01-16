@@ -75,12 +75,12 @@ def get_reulst():
                     current_price_btc = price_btc
                     min_exchange = plx
 
-        for cry_coins in market_coins[cry]:
-            if coin_short_name in cry_coins:
-                price_btc = exchang_datas.get_price_from_key(cry_coins, cry)
-                if current_price_btc > price_btc:
-                    current_price_btc = price_btc
-                    min_exchange = cry
+        # for cry_coins in market_coins[cry]:
+        #     if coin_short_name in cry_coins:
+        #         price_btc = exchang_datas.get_price_from_key(cry_coins, cry)
+        #         if current_price_btc > price_btc:
+        #             current_price_btc = price_btc
+        #             min_exchange = cry
 
         for bix_coins in market_coins[bix]:
             if coin_short_name in bix_coins:
