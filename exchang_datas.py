@@ -11,7 +11,7 @@ BIN = 'binance'
 BIX = 'bittrex'
 PLX = 'poloniex'
 
-MK_LIST = [OKEX, HUOBI, CRY, BIN, BIX, PLX]
+MK_LIST = [OKEX, HUOBI, BIN, BIX, PLX]
 
 
 def get_market_info(market=OKEX):
