@@ -33,13 +33,14 @@ def get_reulst():
     coins = []
     for key in coin_dic.keys():
         coins.extend(coin_dic[key])
-    print('目标币种',coins,'\n')
+    # print('目标币种',coins,'\n')
     for index,coin in enumerate(coins):
         # 计算交易所该币的价格
         current_price_btc = 0
         coin_short_name = coin['coin_short_name']
         if coin_short_name == 'BTC':
             continue
+        print(index,coin_short_name,":")
         okex = exchang_datas.OKEX
         huobi = exchang_datas.HUOBI
         bina = exchang_datas.BIN
