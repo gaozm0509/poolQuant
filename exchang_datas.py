@@ -6,7 +6,7 @@ from pymongo import MongoClient
 
 OKEX = 'okex'
 HUOBI = 'huobi'
-CRY = 'cryptopia'
+CRY = 'Cryptopia'
 BIN = 'binance'
 BIX = 'bittrex'
 PLX = 'poloniex'
