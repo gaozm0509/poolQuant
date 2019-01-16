@@ -35,6 +35,7 @@ def algorithm_info(algorithms=None):
         try:
             jsonReslut = json.loads(reslutStr)
         except json.decoder.JSONDecodeError:
+            print(reslutStr)
             reslutStr = reslutStr + '}'
             jsonReslut = json.loads(reslutStr)
 
