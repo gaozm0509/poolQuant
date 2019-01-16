@@ -39,6 +39,8 @@ def get_reulst():
         current_price_btc = 0
         coin_short_name = coin['coin_short_name']
         print('币种：',coin_short_name)
+        if coin_short_name == 'BTC':
+            continue
         okex = exchang_datas.OKEX
         huobi = exchang_datas.HUOBI
         bina = exchang_datas.BIN
