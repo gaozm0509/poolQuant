@@ -22,7 +22,7 @@ def get_reulst():
     #获取指定的几个交易所包含的币种
     market_infos = db['market_infos']
     market_coins = market_infos.find_one()
-
+    print('所有交易所：',market_coins)
     algorithms_info_col = db['algorithms_info']
     algorithms_info = algorithms_info_col.find_one()
 
