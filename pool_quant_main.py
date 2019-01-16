@@ -34,7 +34,7 @@ def get_reulst():
     for key in coin_dic.keys():
         coins.extend(coin_dic[key])
     print('目标币种',coins,'\n')
-    for coin,index in enumerate(coins):
+    for index,coin in enumerate(coins):
         # 计算交易所该币的价格
         current_price_btc = 0
         coin_short_name = coin['coin_short_name']
