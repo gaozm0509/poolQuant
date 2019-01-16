@@ -52,6 +52,7 @@ def get_reulst():
             if coin_short_name in ok_coins:
                 current_price_btc = exchang_datas.get_price_from_key(
                     ok_coins, okex)
+                print(okex,'价格：',current_price_btc)
                 # print('=====', current_price_btc)
                 break
 
@@ -59,6 +60,7 @@ def get_reulst():
             if coin_short_name in huobi_coins:
                 price_btc = exchang_datas.get_price_from_key(
                     huobi_coins, huobi)
+                print(huobi,'价格：',current_price_btc)
                 if price_btc == 0:
                     break
                 if current_price_btc > price_btc:
@@ -68,6 +70,7 @@ def get_reulst():
         for bina_coins in market_coins[bina]:
             if coin_short_name in bina_coins:
                 price_btc = exchang_datas.get_price_from_key(bina_coins, bina)
+                print(bina,'价格：',current_price_btc)
                 if price_btc == 0:
                     break
                 if current_price_btc > price_btc:
@@ -77,6 +80,7 @@ def get_reulst():
         for plx_coins in market_coins[plx]:
             if coin_short_name in plx_coins:
                 price_btc = exchang_datas.get_price_from_key(plx_coins, plx)
+                print(plx,'价格：',current_price_btc)
                 if price_btc == 0:
                     break
                 if current_price_btc > price_btc:
@@ -93,6 +97,7 @@ def get_reulst():
         for bix_coins in market_coins[bix]:
             if coin_short_name in bix_coins:
                 price_btc = exchang_datas.get_price_from_key(bix_coins, bix)
+                print(bix,'价格：',current_price_btc)
                 if current_price_btc > price_btc:
                     current_price_btc = price_btc
                     min_exchange = bix
