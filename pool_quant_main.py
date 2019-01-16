@@ -34,11 +34,11 @@ def get_reulst():
     for key in coin_dic.keys():
         coins.extend(coin_dic[key])
     print('目标币种',coins,'\n')
-    for coin in coins:
+    for coin,index in enumerate(coins):
         # 计算交易所该币的价格
         current_price_btc = 0
         coin_short_name = coin['coin_short_name']
-        print('币种：',coin_short_name)
+        print(index,'币种：',coin_short_name)
         if coin_short_name == 'BTC':
             continue
         okex = exchang_datas.OKEX
@@ -94,7 +94,7 @@ def get_reulst():
         key = coin['algorithm']
         print('交易市场最低价：', current_price_btc, '/', min_exchange)
 
-        print('所有目标币：',algorithms_info.keys())
+        print('所有目标币种算法：',algorithms_info.keys())
         # 获取挖矿价格
         if key in algorithms_info.keys():
             algorithms_dic = algorithms_info[key]
