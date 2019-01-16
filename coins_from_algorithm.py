@@ -128,8 +128,8 @@ def getCoins(algorithm_key=None):
         dic['coin_short_name'] = coin_short_name
         dic['hashrate_unit'] = unit
         print(dic, '\n')
-        # l.append(dic)
-        # l.sort(key=lambda e: e.__getitem__('algorithm'))
+        l.append(dic)
+        l.sort(key=lambda e: e.__getitem__('algorithm'))
         # insert_dic = {'time': curr_time, 'coins': l, 'update_condition': 1}
         # if col_reuslt:
         #     col.update_one({'update_condition': 1}, {'$set': insert_dic})
