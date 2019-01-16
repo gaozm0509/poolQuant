@@ -47,7 +47,7 @@ def get_reulst():
         plx = exchang_datas.PLX
         cry = exchang_datas.CRY
         bix = exchang_datas.BIX
-        min_exchange = '指定交易所没有该币种'
+        max_exchange = '指定交易所没有该币种'
 
         transaction_pair = coin_short_name + '/BTC'
         for ok_coins in market_coins[okex]:
@@ -55,7 +55,7 @@ def get_reulst():
                 current_price_btc = exchang_datas.get_price_from_key(
                     ok_coins, okex)
                 print(okex,'价格：',current_price_btc)
-                min_exchange = okex
+                max_exchange = okex
                 break
 
         for huobi_coins in market_coins[huobi]: 
@@ -65,7 +65,7 @@ def get_reulst():
                 print(huobi,'价格：',current_price_btc)
                 if current_price_btc <= price_btc:
                     current_price_btc = price_btc
-                    min_exchange = huobi
+                    max_exchange = huobi
                     break
 
         for bina_coins in market_coins[bina]:
@@ -74,7 +74,7 @@ def get_reulst():
                 print(bina,'价格：',current_price_btc)
                 if current_price_btc <= price_btc:
                     current_price_btc = price_btc
-                    min_exchange = bina
+                    max_exchange = bina
                     break
 
         for plx_coins in market_coins[plx]:
@@ -83,7 +83,7 @@ def get_reulst():
                 print(plx,'价格：',current_price_btc)
                 if current_price_btc <= price_btc:
                     current_price_btc = price_btc
-                    min_exchange = plx
+                    max_exchange = plx
                     break
 
         # for cry_coins in market_coins[cry]:
@@ -99,11 +99,11 @@ def get_reulst():
                 print(bix,'价格：',current_price_btc)
                 if current_price_btc <= price_btc:
                     current_price_btc = price_btc
-                    min_exchange = bix
+                    max_exchange = bix
                     break
 
         key = coin['algorithm']
-        print('交易市场最高价：', current_price_btc, '/', min_exchange)
+        print('交易市场最高价：', current_price_btc, '/', max_exchange)
 
         # print('所有目标币种算法：',algorithms_info.keys())
         # 获取挖矿价格
