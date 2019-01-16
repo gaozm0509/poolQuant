@@ -55,7 +55,7 @@ def get_reulst():
                 current_price_btc = exchang_datas.get_price_from_key(
                     ok_coins, okex)
                 print(okex,'价格：',current_price_btc)
-                # print('=====', current_price_btc)
+                min_exchange = okex
                 break
 
         for huobi_coins in market_coins[huobi]: 
@@ -121,7 +121,7 @@ def get_reulst():
                 print('挖矿成本：', algorithm_price_btc, 'niceHashUnit:',
                       nice_hash_unit, 'crptoUnit:', hashrate_unit, '\n')
         else:
-            print('市场最高价：coin["algorithm"]未找到')
+            print('挖矿成本：coin["algorithm"]未找到')
 
 
 get_reulst()
