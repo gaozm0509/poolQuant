@@ -63,7 +63,7 @@ def get_reulst():
                 price_btc = exchang_datas.get_price_from_key(
                     huobi_coins, huobi)
                 print(huobi,'价格：',current_price_btc)
-                if current_price_btc >= price_btc:
+                if current_price_btc <= price_btc:
                     current_price_btc = price_btc
                     min_exchange = huobi
                     break
@@ -72,7 +72,7 @@ def get_reulst():
             if transaction_pair in bina_coins:
                 price_btc = exchang_datas.get_price_from_key(bina_coins, bina)
                 print(bina,'价格：',current_price_btc)
-                if current_price_btc >= price_btc:
+                if current_price_btc <= price_btc:
                     current_price_btc = price_btc
                     min_exchange = bina
                     break
@@ -81,7 +81,7 @@ def get_reulst():
             if transaction_pair in plx_coins:
                 price_btc = exchang_datas.get_price_from_key(plx_coins, plx)
                 print(plx,'价格：',current_price_btc)
-                if current_price_btc >= price_btc:
+                if current_price_btc <= price_btc:
                     current_price_btc = price_btc
                     min_exchange = plx
                     break
@@ -97,13 +97,13 @@ def get_reulst():
             if transaction_pair in bix_coins:
                 price_btc = exchang_datas.get_price_from_key(bix_coins, bix)
                 print(bix,'价格：',current_price_btc)
-                if current_price_btc >= price_btc:
+                if current_price_btc <= price_btc:
                     current_price_btc = price_btc
                     min_exchange = bix
                     break
 
         key = coin['algorithm']
-        print('交易市场最低价：', current_price_btc, '/', min_exchange)
+        print('交易市场最高价：', current_price_btc, '/', min_exchange)
 
         # print('所有目标币种算法：',algorithms_info.keys())
         # 获取挖矿价格
@@ -118,10 +118,10 @@ def get_reulst():
                 algorithm_price_btc = float(estimated_reward) * float(
                     algorithm_price)
 
-                print('算力市场价格：', algorithm_price_btc, 'niceHashUnit:',
+                print('挖矿成本：', algorithm_price_btc, 'niceHashUnit:',
                       nice_hash_unit, 'crptoUnit:', hashrate_unit, '\n')
         else:
-            print('市场最低价：coin["algorithm"]未找到')
+            print('市场最高价：coin["algorithm"]未找到')
 
 
 get_reulst()
