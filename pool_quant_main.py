@@ -38,7 +38,7 @@ def get_reulst():
         # 计算交易所该币的价格
         current_price_btc = 0
         coin_short_name = coin['coin_short_name']
-        print(index,'币种：',coin_short_name)
+        # print(index,'币种：',coin_short_name)
         if coin_short_name == 'BTC':
             continue
         okex = exchang_datas.OKEX
@@ -48,6 +48,11 @@ def get_reulst():
         cry = exchang_datas.CRY
         bix = exchang_datas.BIX
         min_exchange = '指定交易所没有该币种'
+        print('okex',market_coins[okex])
+        print('huobi',market_coins[huobi])
+        print('bina',market_coins[bina])
+        print('plx',market_coins[plx])
+        print('bix',market_coins[bix])
         for ok_coins in market_coins[okex]:
             if coin_short_name in ok_coins:
                 current_price_btc = exchang_datas.get_price_from_key(
