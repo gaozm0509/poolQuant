@@ -63,7 +63,7 @@ def get_reulst():
                 price_btc = exchang_datas.get_price_from_key(
                     huobi_coins, huobi)
                 print(huobi,'价格：',current_price_btc)
-                if current_price_btc > price_btc:
+                if current_price_btc >= price_btc:
                     current_price_btc = price_btc
                     min_exchange = huobi
                     break
@@ -72,7 +72,7 @@ def get_reulst():
             if transaction_pair in bina_coins:
                 price_btc = exchang_datas.get_price_from_key(bina_coins, bina)
                 print(bina,'价格：',current_price_btc)
-                if current_price_btc > price_btc:
+                if current_price_btc >= price_btc:
                     current_price_btc = price_btc
                     min_exchange = bina
                     break
@@ -81,7 +81,7 @@ def get_reulst():
             if transaction_pair in plx_coins:
                 price_btc = exchang_datas.get_price_from_key(plx_coins, plx)
                 print(plx,'价格：',current_price_btc)
-                if current_price_btc > price_btc:
+                if current_price_btc >= price_btc:
                     current_price_btc = price_btc
                     min_exchange = plx
                     break
@@ -97,7 +97,7 @@ def get_reulst():
             if transaction_pair in bix_coins:
                 price_btc = exchang_datas.get_price_from_key(bix_coins, bix)
                 print(bix,'价格：',current_price_btc)
-                if current_price_btc > price_btc:
+                if current_price_btc >= price_btc:
                     current_price_btc = price_btc
                     min_exchange = bix
                     break
