@@ -38,7 +38,6 @@ def get_reulst():
         # 计算交易所该币的价格
         current_price_btc = 0
         coin_short_name = coin['coin_short_name']
-        # print(index,'币种：',coin_short_name)
         if coin_short_name == 'BTC':
             continue
         okex = exchang_datas.OKEX
@@ -63,31 +62,28 @@ def get_reulst():
                 price_btc = exchang_datas.get_price_from_key(
                     huobi_coins, huobi)
                 print(huobi,'价格：',current_price_btc)
-                if price_btc == 0:
-                    break
                 if current_price_btc > price_btc:
                     current_price_btc = price_btc
                     min_exchange = huobi
+                    break
 
         for bina_coins in market_coins[bina]:
             if transaction_pair in bina_coins:
                 price_btc = exchang_datas.get_price_from_key(bina_coins, bina)
                 print(bina,'价格：',current_price_btc)
-                if price_btc == 0:
-                    break
                 if current_price_btc > price_btc:
                     current_price_btc = price_btc
                     min_exchange = bina
+                    break
 
         for plx_coins in market_coins[plx]:
             if transaction_pair in plx_coins:
                 price_btc = exchang_datas.get_price_from_key(plx_coins, plx)
                 print(plx,'价格：',current_price_btc)
-                if price_btc == 0:
-                    break
                 if current_price_btc > price_btc:
                     current_price_btc = price_btc
                     min_exchange = plx
+                    break
 
         # for cry_coins in market_coins[cry]:
         #     if coin_short_name in cry_coins:
@@ -103,11 +99,12 @@ def get_reulst():
                 if current_price_btc > price_btc:
                     current_price_btc = price_btc
                     min_exchange = bix
+                    break
 
         key = coin['algorithm']
         print('交易市场最低价：', current_price_btc, '/', min_exchange)
 
-        print('所有目标币种算法：',algorithms_info.keys())
+        # print('所有目标币种算法：',algorithms_info.keys())
         # 获取挖矿价格
         if key in algorithms_info.keys():
             algorithms_dic = algorithms_info[key]
